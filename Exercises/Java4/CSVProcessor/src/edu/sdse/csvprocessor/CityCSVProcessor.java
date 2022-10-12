@@ -6,6 +6,27 @@ import java.io.FileReader;
 
 public class CityCSVProcessor {
 	
+	class CityRecord {
+		int id; 
+		int year; 
+		String city; 
+		int pop;
+		
+	
+	
+		public CityRecord(int id, int year, String city, int pop) {
+			this.id = id;
+			this.year = year;
+			this.city = city;
+			this.pop = pop;
+			}
+		
+		public String toString() {
+			String thing = "id: " + this.id + ", year: " + this.year + ", city: " + this.city + ", population: " + this.pop;
+			return thing;
+		}
+	}
+	
 	public void readAndProcess(File file) {
 		//Try with resource statement (as of Java 8)
 		try (BufferedReader br = new BufferedReader(new FileReader(file))) {
@@ -23,15 +44,17 @@ public class CityCSVProcessor {
 				String city = convertToString(rawValues[2]);
 				int population = convertToInt(rawValues[3]);
 				
-				System.out.println("id: " + id + ", year: " + year + ", city: " + city + ", population: " + population);
+				//System.out.println("id: " + id + ", year: " + year + ", city: " + city + ", population: " + population);
+				CityRecord bob = new CityRecord(id, year, city, population);
+				System.out.println(bob.toString());
 				
-				//TODO: Extend the program to process entries!
 			}
 		} catch (Exception e) {
 			System.err.println("An error occurred:");
 			e.printStackTrace();
 		}
 	}
+	
 	
 	private String cleanRawValue(String rawValue) {
 		return rawValue.trim();
